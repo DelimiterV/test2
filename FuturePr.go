@@ -199,6 +199,18 @@ func IniEnter(pathToFile string, enter *[]lenter) bool {
 				}
 			}
 			f.Close()
+			fmt.Println("Проверка дубликатов!")
+			fmt.Println(">>>>>>>>>>>>>>>>>>>>>")
+			for i := 0; i < len(*enter)-1; i++ {
+				if (*enter)[i].id > 0 {
+					for j := i + 1; j < len(*enter); j++ {
+						if (*enter)[i].id == (*enter)[j].id {
+							fmt.Println((*enter)[i].nstr, "-", (*enter)[j].nstr)
+						}
+					}
+				}
+			}
+			fmt.Println("<<<<<<<<<<<<<<<<<<<<<")
 		} else {
 			panic(err)
 			rez = false
@@ -321,10 +333,11 @@ func CheckData(pathToFile string) (int, bool) {
 						rstr := strings.Split(mstr, "\t")
 						if flag == 1 {
 							brand, model, artikul, hit, id, r := CheckComma(rstr[0])
-							if id == 25026 {
-								fmt.Println(model, artikul)
-							}
+
 							if r == true {
+
+								//								ex3 = 0
+
 								ex2 = 0
 								for m := 0; m < len(myenter) && ex2 == 0; m++ {
 									if id == myenter[m].id {
@@ -402,6 +415,7 @@ func CheckData(pathToFile string) (int, bool) {
 				default:
 				}
 			}
+			fmt.Println("Ok")
 			f.Close()
 		} else {
 			panic(err)
@@ -932,7 +946,7 @@ func main() {
 
 	if b == true {
 		//fillKenter("C:\\Go\\my_files\\Roslan\\info.txt")
-		fillKenter("./dataPrev.txt")
+		fillKenter("./data.txt")
 		WriteKenter(EnterPath)
 
 	}
