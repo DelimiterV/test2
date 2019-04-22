@@ -1,4 +1,4 @@
 # test2
 test go mod
 
-Just internal project
+Just internal project for modules
