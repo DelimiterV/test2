@@ -742,7 +742,10 @@ func WriteTEnter(MyOldEnter string) {
 						n = i
 					}
 				}
-				fstr := append(arstr[:n-1], arstr[n:]...)
+				fstr := arstr[:]
+				if n > 0 {
+					fstr = append(arstr[:n-1], arstr[n:]...)
+				}
 				rstr = string(EncodeWindows1251([]uint8(strings.Join(fstr, "\t"))))
 				rstr += "\r\n"
 			case -1:
@@ -765,13 +768,15 @@ func WriteTEnter(MyOldEnter string) {
 				artikul := string(EncodeWindows1251([]uint8(myenter[i].artikul)))
 				brand := string(EncodeWindows1251([]uint8(myenter[i].brand)))
 				model := string(EncodeWindows1251([]uint8(myenter[i].model)))
-
-				Tmodel := brand + " " + model
+				Tmodel := "0"
+				if brand != "0" && model != "0" {
+					Tmodel = brand + " " + model
+				}
 
 				vid := string(EncodeWindows1251([]uint8(myenter[i].vid)))
 				hit := string(EncodeWindows1251([]uint8(myenter[i].hit)))
 				if hit == "" {
-					hit = "k"
+					hit = "P"
 				}
 				rstr = nstr + "\t" + pg + "\t" + artikul + "\t" + Tmodel + "\t" + vid + "\t" + hit + "\t" + strconv.Itoa(myenter[i].li) + "\t" + strconv.Itoa(myenter[i].id)
 
